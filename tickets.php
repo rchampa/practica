@@ -1,14 +1,6 @@
 <?php
 require_once('config.php'); 
 
-$tipo = $_POST['tipo'];
-$ciudad = $_POST['ciudad'];
-
-/*$user = 'a@svalero.com';
-$pass = '1234';*/
-
-
-//$link = mysql_connect('mysql1.000webhost.com', 'a7432442_groupon', 'a123456');
 $link = mysql_connect(HOSTNAME, USER_DB, PASS_DB);
 if (!$link) {
     die('No pudo conectar: ' . mysql_error());
