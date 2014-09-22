@@ -2,13 +2,11 @@
 require_once('config.php'); 
 
 //$link = mysql_connect('mysql1.000webhost.com', 'a7432442_groupon', 'a123456');
-$link = mysql_connect(HOSTNAME, USER_DB, PASS_DB);
-if (!$link) {
-    die('No pudo conectar: ' . mysql_error());
-}
-
-mysql_select_db(DATABASE);
-mysql_query("SET NAMES utf8");
+//$link = mysql_connect(HOSTNAME, USER_DB, PASS_DB);
+//if (!$link) {
+//    die('No pudo conectar: ' . mysql_error());
+//}
+//
 
 $response[] = fetch_all(HOSTNAME, USER_DB, PASS_DB);
 
@@ -36,7 +34,7 @@ function listar($host, $user, $pass, $tabla) {
         die('No pudo conectar: ' . mysql_error());
     }
 
-    mysql_select_db("a7432442_groupon");
+    mysql_select_db(DATABASE);
     mysql_query("SET NAMES utf8");
 
     $result = mysql_query("SELECT * FROM ".$tabla) or die('Could not query');
