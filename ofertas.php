@@ -21,15 +21,16 @@ mysql_query("SET NAMES utf8");
 if($ciudad=="-1" && $tipo=="-1"){
     $query = "SELECT * FROM Empresas e inner join Ofertas o on e.Id_Empresa=o.Id_Empresa";
 }
-else if($ciudad=="-1"){
-    $query = "SELECT * FROM Empresas e inner join Ofertas o on e.Id_Empresa=o.Id_Empresa WHERE e.Id_Tipo='{$ciudad}' ";
-}
-else if($tipo=="-1"){
-    $query = "SELECT * FROM Empresas e inner join Ofertas o on e.Id_Empresa=o.Id_Empresa WHERE e.Id_Ciudad='{$tipo}'";
-}
-else{
+else if($ciudad!="-1" && $tipo!="-1"){
     $query = "SELECT * FROM Empresas e inner join Ofertas o on e.Id_Empresa=o.Id_Empresa WHERE e.Id_Tipo='{$tipo}' AND e.Id_Ciudad='{$ciudad}'";
 }
+else if($tipo!="-1"){
+    $query = "SELECT * FROM Empresas e inner join Ofertas o on e.Id_Empresa=o.Id_Empresa WHERE e.Id_Tipo='{$tipo}' ";
+}
+else if($ciudad!="-1"){
+    $query = "SELECT * FROM Empresas e inner join Ofertas o on e.Id_Empresa=o.Id_Empresa WHERE e.Id_Ciudad='{$ciudad}'";
+}
+
 
 
 $q=mysql_query($query);
