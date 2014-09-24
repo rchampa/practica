@@ -1,12 +1,12 @@
 <?php 
     header('Content-type: text/plain; charset=utf-8');
-    
+    //echo stripslashes($_POST["json"]);
     if( isset($_POST["json"]) ) { 
  
 
         //$test = '{"tickets":[{"descripcion":"2 cafes paga 1","Id_Usuario":1,"nombre_empresa":"Otra cafeter.a","email":"a@svalero.com","Unidades":1,"Id_Oferta":8},{"descripcion":"1 caf. paga 2","Id_Usuario":1,"nombre_empresa":"Una cafeter.a","email":"a@svalero.com","Unidades":1,"Id_Oferta":9}]}';
-
-        $decode = $_POST["json"];
+        
+        $decode = stripslashes($_POST["json"]);
         //convertir a utf8 es necesario porque podría llegar en otra codificacion
         //por diversos motivos
         $cadena = utf8_encode($decode);
@@ -38,13 +38,18 @@
 
         mysql_select_db(DATABASE);
         mysql_query("SET NAMES utf8");
-        
+        $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+        fwrite($myfile, "new query");
         for($i=0; $i<$num_tickets; $i++){
-
             $ticket = $tickets[$i];
             //echo $ticket['descripcion'];
             $query = "INSERT INTO TicketCompra(email, Unidades, Fecha_Compra, Id_Oferta, Id_Usuario) VALUES ('{$ticket['email']}',{$ticket['Unidades']},'{$ticket['Fecha_Compra']}',{$ticket['Id_Oferta']},{$ticket['Id_Usuario']})";
             $q=mysql_query($query);
+            
+            $email = $ticket['email'];
+            fwrite($myfile, $email);
+            fwrite($myfile, $q);
+            fclose($myfile);
         }
         
         $output = array(
